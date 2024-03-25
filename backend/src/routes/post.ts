@@ -35,9 +35,21 @@ postRouter.get("/bulk", async (c) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    const blogs = await prisma.post.findMany();
+    const blogs = await prisma.post.findMany({
+      select: {
+        id: true,
+        content: true,
+        title: true,
+        pusblished: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
 
-    return c.json(blogs);
+    return c.json({ status: "success", blogs });
   } catch (e: any) {
     c.status(411);
     return c.json({
