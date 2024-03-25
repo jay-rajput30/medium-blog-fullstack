@@ -5,7 +5,7 @@ type Props = {};
 
 const Blogs = (props: Props) => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col lg:content-center gap-6 lg:max-w-xl lg:mx-auto pt-2 lg:pt-10">
       <BlogCard
         authorName="jay rajput"
         title="this is a random title"
