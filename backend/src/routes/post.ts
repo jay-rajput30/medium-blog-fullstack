@@ -49,7 +49,7 @@ postRouter.get("/bulk", async (c) => {
       },
     });
 
-    return c.json({ status: "success", blogs });
+    return c.json({ status: "success", data: blogs });
   } catch (e: any) {
     c.status(411);
     return c.json({
@@ -171,9 +171,19 @@ postRouter.get("/:id", async (c) => {
       where: {
         id: Number(id),
       },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
-    return c.json({ message: "post found", post });
+    return c.json({ message: "post found", data: post });
   } catch (e: any) {
     c.status(411);
     return c.json({
